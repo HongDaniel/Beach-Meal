@@ -1,37 +1,47 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
-
+import moment from 'moment';
 const Homescreen = (props) => {
     const { navigate } = props.navigation;
-    const [selectedDate, setselectedDate] = useState('');
-    console.log(selectedDate);
+    const [selectedDate, setselectedDate] = useState(moment());
+
+    const setDate = (date) => {
+        console.log(date.format('MMM Do YY'));
+        setselectedDate(date);
+    };
     return (
         <View style={styles.container}>
+            {console.log(moment())}
+            {console.log('selected : ' + selectedDate)}
+            {/* {console.log(getSelectedDate())} */}
+
             <Text style={styles.text}>CHOOSE DATE</Text>
             <CalendarStrip
                 style={styles.calendar}
+                startingDate={moment().subtract(3, 'd')}
+                minDate={moment().subtract(3, 'd')} // 오늘날짜 -3
+                maxDate={'2021-12-12'} // 종강날짜 : 12월 12일
                 scrollable
-                scrollerPaging
-                daySelectionAnimation={{ type: 'background', duration: 200, highlightColor: '#eee' }}
-                calendarColor={'#ffdd59'}
-                calendarHeaderStyle={{ color: 'black', fontSize: 20, paddingBottom: 15 }}
-                dateNumberStyle={{ color: 'black', fontSize: 16 }}
-                dateNameStyle={{ color: 'black', fontSize: 12 }}
+                daySelectionAnimation={{ type: 'background', duration: 200, highlightColor: '#95afc0' }}
+                calendarColor={'#22a6b3'}
+                calendarHeaderStyle={{ color: 'white', fontSize: 20, paddingBottom: 15 }}
+                dateNumberStyle={{ color: 'white', fontSize: 16 }}
+                dateNameStyle={{ color: 'white', fontSize: 12 }}
                 iconContainer={{ flex: 0.05 }}
-                onDateSelected={(date) => setselectedDate(date.format('YYYY-MM-DD'))}
+                onDateSelected={(date) => setDate(date)}
             />
             <View style={styles.villages}>
                 <TouchableOpacity style={styles.parkside} onPress={() => navigate('Parksidemenu', { date: selectedDate })}>
-                    Parkside
+                    <Text style={{ fontSize: 30 }}>Parkside</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.hillside} onPress={() => navigate('Hillsidemenu', { date: selectedDate })}>
-                    Hillside
+                    <Text style={{ fontSize: 30 }}>Hillside</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.beachside} onPress={() => navigate('Beachsidemenu', { date: selectedDate })}>
-                    Beachside
+                    <Text style={{ fontSize: 30 }}>Beachside</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -68,7 +78,6 @@ const styles = StyleSheet.create({
         height: 150,
         borderRadius: 15,
         backgroundColor: '#7bed9f',
-        fontSize: 30,
         marginBottom: 20,
     },
     hillside: {
@@ -78,7 +87,6 @@ const styles = StyleSheet.create({
         height: 150,
         borderRadius: 15,
         backgroundColor: '#1e90ff',
-        fontSize: 30,
         marginBottom: 20,
     },
     beachside: {
@@ -88,6 +96,5 @@ const styles = StyleSheet.create({
         height: 150,
         borderRadius: 15,
         backgroundColor: '#eccc68',
-        fontSize: 30,
     },
 });
