@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 const Parksidemenu = (props) => {
     const date = props.navigation.state.params['date'].format('MMM DD');
     const day = props.navigation.state.params['date'].format('dddd');
-    function getCycle(date) {
+    function getParksideCycle(date) {
         const eachCycle = [
             'Aug 23',
             'Aug 30',
@@ -46,20 +46,44 @@ const Parksidemenu = (props) => {
         }
     }
     // console.log('cycle: ' + getCycle(date));
-    const inputCycle = 'cycle' + getCycle(date);
+    const inputCycle = 'cycle' + getParksideCycle(date);
     // console.log(typeof inputCycle);
     console.log(day);
     console.log(ParksideCycle[inputCycle][day]);
+    const Breakfast = ParksideCycle[inputCycle][day]['Breakfast'];
+    const Lunch = ParksideCycle[inputCycle][day]['Lunch'];
+    const Dinner = ParksideCycle[inputCycle][day]['Dinner'];
     return (
         <View style={styles.container}>
             <View style={styles.box}>
                 <Text style={styles.title}>Breakfast</Text>
+                {Breakfast.map((el, idx) => {
+                    return (
+                        <Text style={styles.menu} key={idx}>
+                            {el}
+                        </Text>
+                    );
+                })}
             </View>
             <View style={styles.box}>
                 <Text style={styles.title}>Lunch</Text>
+                {Lunch.map((el, idx) => {
+                    return (
+                        <Text style={styles.menu} key={idx}>
+                            {el}
+                        </Text>
+                    );
+                })}
             </View>
             <View style={styles.box}>
                 <Text style={styles.title}>Dinner</Text>
+                {Dinner.map((el, idx) => {
+                    return (
+                        <Text style={styles.menu} key={idx}>
+                            {el}
+                        </Text>
+                    );
+                })}
             </View>
         </View>
     );
@@ -80,11 +104,19 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         borderRadius: 15,
         padding: 15,
+        overflow: 'scroll',
     },
     title: {
         fontSize: 25,
         fontWeight: '800',
         color: '#dff9fb',
+        marginBottom: 15,
+    },
+    menu: {
+        fontSize: 18,
+        fontWeight: '800',
+        color: '#dff9fb',
+        marginVertical: 7,
     },
 });
 export default Parksidemenu;

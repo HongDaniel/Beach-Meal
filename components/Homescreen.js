@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
 import moment from 'moment';
 const Homescreen = (props) => {
@@ -10,6 +10,10 @@ const Homescreen = (props) => {
         console.log(date.format('MMM Do YY'));
         setselectedDate(date);
     };
+    const park = { uri: '../images/park.png' };
+    const hill = { uri: '../images/hill.png' };
+    const beach = { uri: '../images/beach.png' };
+
     return (
         <View style={styles.container}>
             {console.log(moment())}
@@ -32,16 +36,18 @@ const Homescreen = (props) => {
                 onDateSelected={(date) => setDate(date)}
             />
             <View style={styles.villages}>
+                {/* <ImageBackground source={require('../images/park.png')} resizeMode="contain" style={styles.park}> */}
                 <TouchableOpacity style={styles.parkside} onPress={() => navigate('Parksidemenu', { date: selectedDate })}>
-                    <Text style={{ fontSize: 30 }}>Parkside</Text>
+                    <Text style={{ fontSize: 30, fontWeight: '700' }}>Parkside</Text>
                 </TouchableOpacity>
+                {/* </ImageBackground> */}
 
                 <TouchableOpacity style={styles.hillside} onPress={() => navigate('Hillsidemenu', { date: selectedDate })}>
-                    <Text style={{ fontSize: 30 }}>Hillside</Text>
+                    <Text style={{ fontSize: 30, fontWeight: '700' }}>Hillside</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.beachside} onPress={() => navigate('Beachsidemenu', { date: selectedDate })}>
-                    <Text style={{ fontSize: 30 }}>Beachside</Text>
+                    <Text style={{ fontSize: 30, fontWeight: '700' }}>Beachside</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -76,10 +82,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 250,
         height: 150,
+        zIndex: '1',
         borderRadius: 15,
-        backgroundColor: '#7bed9f',
         marginBottom: 20,
+        backgroundColor: '#7bed9f',
     },
+    park: { width: 250, height: 150, zIndex: '3' },
+    hill: { width: 250, height: 150, zIndex: '3' },
+    beach: { width: 250, height: 150, zIndex: '3' },
     hillside: {
         justifyContent: 'center',
         alignItems: 'center',
