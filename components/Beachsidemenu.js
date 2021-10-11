@@ -1,33 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { BeachsideCycle } from '../mealCycle/BeachsideCycle.js';
+import { AdMobBanner } from 'expo-ads-admob';
 
 const Beachsidemenu = (props) => {
     const date = props.navigation.state.params['date'].format('MMM DD');
     const day = props.navigation.state.params['date'].format('dddd');
+    const eachCycle = props.navigation.state.params['eachCycle'];
+    console.log('props cycle: ' + props.navigation.state.params['cycle']);
+    console.log('props day: ' + props.navigation.state.params['day']);
+
     function getBeachsideCycle(date) {
-        const eachCycle = [
-            'Aug 23',
-            'Aug 30',
-            'Sep 6',
-            'Sep 13',
-            'Sep 20',
-            'Sep 27',
-            'Oct 4',
-            'Oct 11',
-            'Oct 18',
-            'Oct 25',
-            'Nov 1',
-            'Nov 8',
-            'Nov 15',
-            'Nov 22',
-            'Nov 29',
-            'Dec 6',
-        ];
         const inputMonth = date.slice(0, 3);
         const inputDay = parseInt(date.slice(4));
 
-        for (let i = 0; i < eachCycle.length - 1; i++) {
+        for (let i = 0; i < eachCycle.length; i++) {
             const month = eachCycle[i].slice(0, 3);
             const day = parseInt(eachCycle[i].slice(4));
 
@@ -35,51 +22,65 @@ const Beachsidemenu = (props) => {
                 // 월이 같을 경우
                 if (inputDay < day) {
                     return (i + 2) % 5 === 0 ? 5 : (i + 2) % 5;
-                    // return i;
                 } else {
-                    if (eachCycle[i + 1].slice(0, 3) !== month) {
-                        // return i;
+                    if (i !== eachCycle.length - 1) {
+                        if (eachCycle[i + 1].slice(0, 3) !== month) {
+                            return (i + 3) % 5 === 0 ? 5 : (i + 3) % 5;
+                        }
+                    } else {
                         return (i + 3) % 5 === 0 ? 5 : (i + 3) % 5;
                     }
                 }
             }
         }
     }
-    // console.log('cycle: ' + getCycle(date));
     const inputCycle = 'cycle' + getBeachsideCycle(date);
-    // console.log(typeof inputCycle);
-    console.log(inputCycle);
+    console.log('Cycle: ' + inputCycle);
     console.log(day);
     // console.log(HillsideCycle[inputCycle][day]);
     const Breakfast = BeachsideCycle[inputCycle][day]['Breakfast'];
     const Lunch = BeachsideCycle[inputCycle][day]['Lunch'];
     const Dinner = BeachsideCycle[inputCycle][day]['Dinner'];
-    console.log(Breakfast);
-    console.log('Lunch : ' + Lunch);
-    console.log('Dinner : ' + Dinner);
+    const Brunch = BeachsideCycle[inputCycle][day]['Brunch'];
 
     return (
         <View style={styles.container}>
-            <View style={styles.box}>
-                <Text style={styles.title}>Breakfast</Text>
-                {Breakfast.map((el, idx) => {
-                    return (
-                        <Text style={styles.menu} key={idx}>
-                            {el}
-                        </Text>
-                    );
-                })}
-            </View>
-            <View style={styles.box}>
-                <Text style={styles.title}>Lunch</Text>
-                {Lunch.map((el, idx) => {
-                    return (
-                        <Text style={styles.menu} key={idx}>
-                            {el}
-                        </Text>
-                    );
-                })}
-            </View>
+            {day !== 'Saturday' && day !== 'Sunday' ? (
+                <View style={styles.box}>
+                    <Text style={styles.title}>Breakfast</Text>
+                    {Breakfast.map((el, idx) => {
+                        return (
+                            <Text style={styles.menu} key={idx}>
+                                {el}
+                            </Text>
+                        );
+                    })}
+                </View>
+            ) : null}
+            {day !== 'Saturday' && day !== 'Sunday' ? (
+                <View style={styles.box}>
+                    <Text style={styles.title}>Lunch</Text>
+                    {Lunch.map((el, idx) => {
+                        return (
+                            <Text style={styles.menu} key={idx}>
+                                {el}
+                            </Text>
+                        );
+                    })}
+                </View>
+            ) : null}
+            {day === 'Saturday' || day === 'Sunday' ? (
+                <View style={styles.box}>
+                    <Text style={styles.title}>Brunch</Text>
+                    {Brunch.map((el, idx) => {
+                        return (
+                            <Text style={styles.menu} key={idx}>
+                                {el}
+                            </Text>
+                        );
+                    })}
+                </View>
+            ) : null}
             <View style={styles.box}>
                 <Text style={styles.title}>Dinner</Text>
                 {Dinner.map((el, idx) => {
@@ -90,6 +91,14 @@ const Beachsidemenu = (props) => {
                     );
                 })}
             </View>
+            <AdMobBanner
+                adUnitID={'ca-app-pub-7362297965778148/9183063405'}
+                bannerSize="smartBanner"
+                servePersonalizedAds={true}
+                style={{
+                    padding: 30,
+                }}
+            />
         </View>
     );
 };
@@ -105,7 +114,7 @@ const styles = StyleSheet.create({
     box: {
         width: 300,
         height: 300,
-        backgroundColor: '#eccc68',
+        backgroundColor: '#ffa502',
         marginVertical: 20,
         borderRadius: 15,
         padding: 15,

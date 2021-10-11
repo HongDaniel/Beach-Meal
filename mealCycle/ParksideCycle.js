@@ -237,11 +237,11 @@ const ParksideCycle = {
                 'Creamy Cauliflower Soup        ',
                 'Caldo de Res Soup        ',
                 'Brown Rice and Quinoa Kale Salad        ',
-                'Sweet and Spicy Pork S/W(Beachside only) Mac and Cheese M/W/S         ',
+                'Mac and Cheese M/W/S         ',
                 'Chipotle Chicken Bowl          ',
                 'Gardein Beef and Onions S/W            ',
                 "Chef's Choice             ",
-                'Beef Taquitos S/W(Beachside only) Ranch Chicken Bacon Pizza W/M/S           ',
+                'Ranch Chicken Bacon Pizza W/M/S           ',
             ],
         },
         Friday: {

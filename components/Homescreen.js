@@ -1,24 +1,52 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
 import moment from 'moment';
+import { AdMobBanner } from 'expo-ads-admob';
+
 const Homescreen = (props) => {
     const { navigate } = props.navigation;
     const [selectedDate, setselectedDate] = useState(moment());
-
+    const [saturday, setSaturday] = useState(false);
+    const [sunday, setSunday] = useState(false);
+    let cycle = [];
+    let day = '';
+    const eachCycle = [
+        'Aug 23',
+        'Aug 30',
+        'Sep 6',
+        'Sep 13',
+        'Sep 20',
+        'Sep 27',
+        'Oct 4',
+        'Oct 11',
+        'Oct 18',
+        'Oct 25',
+        'Nov 1',
+        'Nov 8',
+        'Nov 15',
+        'Nov 29',
+        'Dec 6',
+    ];
     const setDate = (date) => {
-        console.log(date.format('MMM Do YY'));
+        // console.log(date.format('MMM DD'));
+        // day = date.format('dddd');
         setselectedDate(date);
+        if (day === 'Saturday') {
+            setSaturday(true);
+            setSunday(false);
+        } else if (day === 'Sunday') {
+            setSaturday(false);
+            setSunday(true);
+        } else {
+            setSaturday(false);
+            setSunday(false);
+        }
     };
-    const park = { uri: '../images/park.png' };
-    const hill = { uri: '../images/hill.png' };
-    const beach = { uri: '../images/beach.png' };
-
     return (
         <View style={styles.container}>
-            {console.log(moment())}
-            {console.log('selected : ' + selectedDate)}
-            {/* {console.log(getSelectedDate())} */}
+            {/* {console.log(moment())} */}
+            {/* {console.log('selected : ' + selectedDate)} */}
 
             <Text style={styles.text}>CHOOSE DATE</Text>
             <CalendarStrip
@@ -27,28 +55,51 @@ const Homescreen = (props) => {
                 minDate={moment().subtract(3, 'd')} // 오늘날짜 -3
                 maxDate={'2021-12-12'} // 종강날짜 : 12월 12일
                 scrollable
-                daySelectionAnimation={{ type: 'background', duration: 200, highlightColor: '#95afc0' }}
-                calendarColor={'#22a6b3'}
+                selectedDate={moment()}
+                daySelectionAnimation={{ type: 'background', duration: 200, highlightColor: '#ffeaa7' }}
+                calendarColor={'#f9ca24'}
                 calendarHeaderStyle={{ color: 'white', fontSize: 20, paddingBottom: 15 }}
                 dateNumberStyle={{ color: 'white', fontSize: 16 }}
                 dateNameStyle={{ color: 'white', fontSize: 12 }}
-                iconContainer={{ flex: 0.05 }}
+                iconContainer={{ flex: 0.08 }}
                 onDateSelected={(date) => setDate(date)}
             />
             <View style={styles.villages}>
-                {/* <ImageBackground source={require('../images/park.png')} resizeMode="contain" style={styles.park}> */}
-                <TouchableOpacity style={styles.parkside} onPress={() => navigate('Parksidemenu', { date: selectedDate })}>
-                    <Text style={{ fontSize: 30, fontWeight: '700' }}>Parkside</Text>
-                </TouchableOpacity>
-                {/* </ImageBackground> */}
+                {saturday ? null : (
+                    <TouchableOpacity
+                        style={[styles.whichSide, { backgroundColor: '#6ab04c' }]}
+                        onPress={() => navigate('Parksidemenu', { date: selectedDate, eachCycle: eachCycle })}
+                    >
+                        <Text style={styles.boxText}>Parkside</Text>
+                        <Image source={require('../images/park.png')} style={[styles.boxPic, { bottom: 5 }]}></Image>
+                    </TouchableOpacity>
+                )}
 
-                <TouchableOpacity style={styles.hillside} onPress={() => navigate('Hillsidemenu', { date: selectedDate })}>
-                    <Text style={{ fontSize: 30, fontWeight: '700' }}>Hillside</Text>
-                </TouchableOpacity>
+                {sunday ? null : (
+                    <TouchableOpacity
+                        style={[styles.whichSide, { backgroundColor: '#1e90ff' }]}
+                        onPress={() => navigate('Hillsidemenu', { date: selectedDate, eachCycle: eachCycle })}
+                    >
+                        <Text style={styles.boxText}>Hillside</Text>
+                        <Image source={require('../images/hill.png')} style={[styles.boxPic, { bottom: 10 }]}></Image>
+                    </TouchableOpacity>
+                )}
 
-                <TouchableOpacity style={styles.beachside} onPress={() => navigate('Beachsidemenu', { date: selectedDate })}>
-                    <Text style={{ fontSize: 30, fontWeight: '700' }}>Beachside</Text>
+                <TouchableOpacity
+                    style={[styles.whichSide, { backgroundColor: '#ffa502' }]}
+                    onPress={() => navigate('Beachsidemenu', { date: selectedDate, eachCycle: eachCycle })}
+                >
+                    <Text style={styles.boxText}>Beachside</Text>
+                    <Image source={require('../images/beach.png')} style={[styles.boxPic, { bottom: 10 }]}></Image>
                 </TouchableOpacity>
+                <AdMobBanner
+                    adUnitID={'ca-app-pub-7362297965778148/9183063405'}
+                    bannerSize="smartBanner"
+                    servePersonalizedAds={true}
+                    style={{
+                        padding: 30,
+                    }}
+                />
             </View>
         </View>
     );
@@ -62,7 +113,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 35,
         fontWeight: 500,
-        marginHorizontal: 30,
+        marginHorizontal: 20,
         marginTop: 30,
         marginBottom: 15,
     },
@@ -77,34 +128,21 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
     },
-    parkside: {
-        justifyContent: 'center',
-        alignItems: 'center',
+    whichSide: {
+        justifyContent: 'space-between',
+        // alignItems: 'center',
         width: 250,
         height: 150,
         zIndex: '1',
         borderRadius: 15,
         marginBottom: 20,
-        backgroundColor: '#7bed9f',
     },
-    park: { width: 250, height: 150, zIndex: '3' },
-    hill: { width: 250, height: 150, zIndex: '3' },
-    beach: { width: 250, height: 150, zIndex: '3' },
-    hillside: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 250,
-        height: 150,
-        borderRadius: 15,
-        backgroundColor: '#1e90ff',
-        marginBottom: 20,
+    boxText: {
+        fontSize: 30,
+        fontWeight: '700',
+        color: '#fff',
+        marginLeft: 12,
+        marginTop: 12,
     },
-    beachside: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 250,
-        height: 150,
-        borderRadius: 15,
-        backgroundColor: '#eccc68',
-    },
+    boxPic: { width: 100, height: 100, zIndex: '3', left: 140 },
 });
