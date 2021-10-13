@@ -18,21 +18,21 @@ const App = createStackNavigator({
         screen: Parksidemenu,
         navigationOptions: () => ({
             title: 'Parkside Menu',
-            headerBackTitle: 'Back',
+            // headerBackTitle: 'Back',
         }),
     },
     Hillsidemenu: {
         screen: Hillsidemenu,
         navigationOptions: () => ({
             title: 'Hillside Menu',
-            headerBackTitle: 'Back',
+            // headerBackTitle: 'Back',
         }),
     },
     Beachsidemenu: {
         screen: Beachsidemenu,
         navigationOptions: () => ({
             title: 'Beachside Menu',
-            headerBackTitle: 'Back',
+            // headerBackTitle: 'Back',
         }),
     },
     initialRouteName: 'Homescreen',

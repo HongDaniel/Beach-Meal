@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 25,
         fontWeight: '800',
-        color: '#fff',
+        color: '#2c3e50',
         marginBottom: 15,
     },
     menu: {

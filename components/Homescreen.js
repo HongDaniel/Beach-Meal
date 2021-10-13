@@ -30,7 +30,8 @@ const Homescreen = (props) => {
     ];
     const setDate = (date) => {
         // console.log(date.format('MMM DD'));
-        // day = date.format('dddd');
+        day = date.format('dddd');
+        console.log(day);
         setselectedDate(date);
         if (day === 'Saturday') {
             setSaturday(true);
@@ -111,10 +112,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     text: {
-        fontSize: 35,
+        fontSize: 28,
         fontWeight: '500',
         marginHorizontal: 20,
-        marginTop: 30,
+        marginTop: 55,
         marginBottom: 15,
     },
     calendar: {
