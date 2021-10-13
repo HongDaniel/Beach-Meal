@@ -1,6 +1,6 @@
 import React from 'react';
 import { HillsideCycle } from '../mealCycle/HillsideCycle.js';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { AdMobBanner } from 'expo-ads-admob';
 
 const Hillsidemenu = (props) => {
@@ -46,62 +46,72 @@ const Hillsidemenu = (props) => {
     const Brunch = HillsideCycle[inputCycle][day]['Brunch'];
 
     return (
-        <View style={styles.container}>
-            {day !== 'Saturday' && day !== 'Sunday' ? (
+        <ScrollView>
+            <View style={styles.container}>
+                {day !== 'Saturday' && day !== 'Sunday' ? (
+                    <View style={styles.box}>
+                        <ScrollView>
+                            <Text style={styles.title}>Breakfast</Text>
+                            {Breakfast.map((el, idx) => {
+                                return (
+                                    <Text style={styles.menu} key={idx}>
+                                        {el}
+                                    </Text>
+                                );
+                            })}
+                        </ScrollView>
+                    </View>
+                ) : null}
+                {day !== 'Saturday' && day !== 'Sunday' ? (
+                    <View style={styles.box}>
+                        <ScrollView>
+                            <Text style={styles.title}>Lunch</Text>
+                            {Lunch.map((el, idx) => {
+                                return (
+                                    <Text style={styles.menu} key={idx}>
+                                        {el}
+                                    </Text>
+                                );
+                            })}
+                        </ScrollView>
+                    </View>
+                ) : null}
+                {day === 'Saturday' || day === 'Sunday' ? (
+                    <View style={styles.box}>
+                        <ScrollView>
+                            <Text style={styles.title}>Brunch</Text>
+                            {Brunch.map((el, idx) => {
+                                return (
+                                    <Text style={styles.menu} key={idx}>
+                                        {el}
+                                    </Text>
+                                );
+                            })}
+                        </ScrollView>
+                    </View>
+                ) : null}
                 <View style={styles.box}>
-                    <Text style={styles.title}>Breakfast</Text>
-                    {Breakfast.map((el, idx) => {
-                        return (
-                            <Text style={styles.menu} key={idx}>
-                                {el}
-                            </Text>
-                        );
-                    })}
+                    <ScrollView>
+                        <Text style={styles.title}>Dinner</Text>
+                        {Dinner.map((el, idx) => {
+                            return (
+                                <Text style={styles.menu} key={idx}>
+                                    {el}
+                                </Text>
+                            );
+                        })}
+                    </ScrollView>
                 </View>
-            ) : null}
-            {day !== 'Saturday' && day !== 'Sunday' ? (
-                <View style={styles.box}>
-                    <Text style={styles.title}>Lunch</Text>
-                    {Lunch.map((el, idx) => {
-                        return (
-                            <Text style={styles.menu} key={idx}>
-                                {el}
-                            </Text>
-                        );
-                    })}
-                </View>
-            ) : null}
-            {day === 'Saturday' || day === 'Sunday' ? (
-                <View style={styles.box}>
-                    <Text style={styles.title}>Brunch</Text>
-                    {Brunch.map((el, idx) => {
-                        return (
-                            <Text style={styles.menu} key={idx}>
-                                {el}
-                            </Text>
-                        );
-                    })}
-                </View>
-            ) : null}
-            <View style={styles.box}>
-                <Text style={styles.title}>Dinner</Text>
-                {Dinner.map((el, idx) => {
-                    return (
-                        <Text style={styles.menu} key={idx}>
-                            {el}
-                        </Text>
-                    );
-                })}
+                <AdMobBanner
+                    adUnitID={'ca-app-pub-7362297965778148/9183063405'}
+                    bannerSize="smartBanner"
+                    servePersonalizedAds={true}
+                    style={{
+                        padding: 30,
+                    }}
+                />
             </View>
-            <AdMobBanner
-                adUnitID={'ca-app-pub-7362297965778148/9183063405'}
-                bannerSize="smartBanner"
-                servePersonalizedAds={true}
-                style={{
-                    padding: 30,
-                }}
-            />
-        </View>
+        </ScrollView>
     );
 };
 
@@ -125,13 +135,13 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 25,
         fontWeight: '800',
-        color: '#dff9fb',
+        color: '#fff',
         marginBottom: 15,
     },
     menu: {
         fontSize: 18,
         fontWeight: '800',
-        color: '#dff9fb',
+        color: '#fff',
         marginVertical: 7,
     },
 });

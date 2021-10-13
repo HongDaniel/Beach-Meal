@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 35,
-        fontWeight: 500,
+        fontWeight: '500',
         marginHorizontal: 20,
         marginTop: 30,
         marginBottom: 15,
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         width: 250,
         height: 150,
-        zIndex: '1',
+        zIndex: 1,
         borderRadius: 15,
         marginBottom: 20,
     },
@@ -144,5 +144,5 @@ const styles = StyleSheet.create({
         marginLeft: 12,
         marginTop: 12,
     },
-    boxPic: { width: 100, height: 100, zIndex: '3', left: 140 },
+    boxPic: { width: 100, height: 100, zIndex: 3, left: 140 },
 });

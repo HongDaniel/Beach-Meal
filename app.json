@@ -1,14 +1,15 @@
 {
   "expo": {
-    "name": "BeachMeal",
-    "slug": "BeachMeal",
+    "name": "Beach Meal",
+    "slug": "beach-meal",
     "version": "1.0.0",
+    "decription": "This App shows daily menu of three dining halls in CSULB",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#f7b731"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -25,9 +26,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF",
-        "config": {
-          "googleMobileAdsAppId": "ca-app-pub-7362297965778148/9183063405"
+        "backgroundColor": "#f7b731"
         }
       }
     },
@@ -35,4 +34,4 @@
       "favicon": "./assets/favicon.png"
     }
   }
-}
+
